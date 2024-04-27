@@ -1,7 +1,9 @@
 import pandas as pd
 import ssl
-import matplotlib as mpl
+import matplotlib.pyplot as plt
 import numpy as np
+import seaborn as sns 
+import researchpy as rp
 
 ssl._create_default_https_context = ssl._create_unverified_context
 data_csv = pd.read_csv('https://raw.githubusercontent.com/Nikhilg04/strokes/main/brain_stroke.csv')
@@ -17,4 +19,11 @@ avg_glucose_level = data_csv['avg_glucose_level']
 bmi = data_csv['bmi']
 smoking_status = data_csv['smoking_status']
 stroke = data_csv['stroke']
+
+df = pd.DataFrame(data_csv)
+df = df.dropna()
+
+counts = df.groupby(['smoking_status', 'stroke']).size().unstack(fill_value=0) # this is big
+
+print(counts)
 
